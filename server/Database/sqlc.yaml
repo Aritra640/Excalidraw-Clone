@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    schema: "migrations/*.up.sql"
+    queries: "Queries/"
+    gen:
+      go:
+        package: "db"
+        out: "db"
