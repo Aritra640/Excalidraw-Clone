@@ -1,17 +1,22 @@
 package main
 
 import (
+	"database/sql"
+	"errors"
 	"flag"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/Aritra640/Excalidraw-Clone/server/Database/db"
 	config "github.com/Aritra640/Excalidraw-Clone/server/Models/Config"
 	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
 	"github.com/Aritra640/Excalidraw-Clone/server/internal/WS"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	_ "github.com/lib/pq"
+	"github.com/pressly/goose/v3"
 )
 
 
@@ -46,6 +51,23 @@ func main() {
     return 
   }
 
+  err := start_database()
+  if err != nil {
+    log.Println("Error: migrations failed , " , err)
+    return 
+  }
+  log.Println("migrations successfull!")
+
+  err = db.Connect()
+  if err != nil {
+    log.Println("Error: unexpecetedly the database crashed!")
+    log.Println("Closing the database...")
+    db.Close()
+    return
+  }
+  defer db.Close()
+  log.Println("Database connected successfull")
+
 	e := echo.New()
 
   e.Use(middleware.Recover())
@@ -61,4 +83,28 @@ func main() {
   })
 
   e.Logger.Fatal(e.Start(config.App.Port))
+}
+
+//start database for migrations set up
+func start_database() error  {
+
+  postgresURL := os.Getenv("POSTGRES_CONN_URL")
+  if postgresURL == "" { 
+    log.Println("Database url empty!")
+    log.Println("Database could not be connected")
+    return errors.New("error: database url empty")
+  }
+  pg,err := sql.Open("postgres" , postgresURL)
+  if err != nil {
+    log.Println("Error: " , err)
+    return err
+  }
+  defer pg.Close()
+
+  //Run migrations
+  if err = goose.Up(pg , "./Database/migrations"); err != nil {
+    log.Println("Error1: migrations failed: " , err)
+    return err
+  }
+  return nil
 }
