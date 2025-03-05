@@ -31,8 +31,5 @@ func verifyOTP(email , otpString string) bool {
   }
 
   otp := userOTP.(string)
-  if otp == otpString {
-    return true
-  }
-  return false
-} 
+  return otp == otpString
+ } 

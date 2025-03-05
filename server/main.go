@@ -11,6 +11,7 @@ import (
 	"github.com/Aritra640/Excalidraw-Clone/server/Database/db"
 	config "github.com/Aritra640/Excalidraw-Clone/server/Models/Config"
 	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
+	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
 	"github.com/Aritra640/Excalidraw-Clone/server/internal/WS"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -40,7 +41,6 @@ func main() {
     err := mailserver.SendTestMail(mailid)
 
     log.Println("Email id : " , config.App.Google_Email)
-    log.Println("Password : " , config.App.Google_App_Password)
     
     if err != nil {
       log.Println("Error: SMTP server crashed: " , err)
@@ -54,12 +54,25 @@ func main() {
     err := mailserver.SendVerifyMail("aritra101" , mailid , "123456")
 
     log.Println("Email id: " , config.App.Google_Email)
-    log.Println("Password:" , config.App.Google_App_Password)
 
     if err != nil {
       log.Println("Error: SMTP server crashed: " , err)
     }else {
       log.Println("SMTP test mail successfull")
+    }
+    return 
+
+  }else if *modeString == "sendmail" {
+    mailid := os.Getenv("TEST_EMAIL")
+    err := notification.SendNotificationVerifiedUser("aritra" , mailid)
+
+    log.Println("Email id: " , config.App.Google_Email)
+    log.Println("App password: " , config.App.Google_App_Password)
+    
+    if err != nil {
+      log.Println("Error: SMTP server crashed: " , err)
+    }else {
+      log.Println("SMTP server send mail- success!")
     }
 
     return 
