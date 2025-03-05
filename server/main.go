@@ -9,9 +9,10 @@ import (
 	"os"
 
 	"github.com/Aritra640/Excalidraw-Clone/server/Database/db"
+	dbhelper "github.com/Aritra640/Excalidraw-Clone/server/Database/dbHandlers"
 	config "github.com/Aritra640/Excalidraw-Clone/server/Models/Config"
+	signin_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signin"
 	signup_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signup"
-  signin_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signin"
 
 	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
 	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
@@ -78,6 +79,20 @@ func main() {
       log.Println("SMTP server send mail- success!")
     }
 
+    return 
+  }else if *modeString == "testdb" && modeString != nil {
+    err := db.Connect(); if err != nil {
+      log.Println("Failed to setup connection to database!")
+      return 
+    }
+    defer db.Close()
+    err = dbhelper.AddTestUser("username1" , "email1" , "1"); if err != nil {
+      log.Println("Error : addTestUser failed!")
+      log.Println("Database test failed!")
+      return 
+    }
+
+    log.Println("Database test successfull!")
     return 
   }
 

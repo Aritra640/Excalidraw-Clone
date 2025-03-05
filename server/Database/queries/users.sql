@@ -21,4 +21,7 @@ SELECT id, username, email, created_at
 FROM users
 ORDER BY created_at DESC;
 
-
+-- name: GetUserByEmail :one
+SELECT id, username, email, password_hashed, created_at 
+FROM users
+WHERE email = $1;
