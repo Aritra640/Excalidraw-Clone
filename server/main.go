@@ -49,6 +49,20 @@ func main() {
     }
 
     return 
+  }else if *modeString == "verifymail" {
+    mailid := os.Getenv("TEST_EMAIL")
+    err := mailserver.SendVerifyMail("aritra101" , mailid , "123456")
+
+    log.Println("Email id: " , config.App.Google_Email)
+    log.Println("Password:" , config.App.Google_App_Password)
+
+    if err != nil {
+      log.Println("Error: SMTP server crashed: " , err)
+    }else {
+      log.Println("SMTP test mail successfull")
+    }
+
+    return 
   }
 
   err := start_database()

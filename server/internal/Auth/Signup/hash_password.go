@@ -21,3 +21,8 @@ func hash_Password( password string , cost int , hashed_password chan string){
 }
 
 
+//verify password checks if the provided password matches the hashed password 
+func verify_Password(hashed_password , password string) bool {
+  err := bcrypt.CompareHashAndPassword([]byte(hashed_password) , []byte(password))
+  return err == nil
+}

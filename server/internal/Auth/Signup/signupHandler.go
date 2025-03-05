@@ -9,7 +9,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-
 func SignupHandler(c echo.Context) error {
 
   var newUser authtypes.NewUser
@@ -19,12 +18,24 @@ func SignupHandler(c echo.Context) error {
       Message: "some error has occured, data could not be fetched!",
     })
   }
-  
+  //TODO: check if the user already exists by email id
+
+
   passwordChan := make(chan string)
   go hash_Password(newUser.Password , 14 , passwordChan)
+  hash := <-passwordChan
+  if hash == "" {
+    log.Println("Error: password could not be hashed")
+    return c.JSON(http.StatusInternalServerError , servertypes.JSONmessage{
+      Message: "something went wrong",
+    })
+  }
+  newUser.Password = hash
+  addUser(newUser)
   
+  return c.JSON(http.StatusOK , servertypes.JSONmessage{
+    Message: "Redirect to OTP",
+  })
 }
 
-func OTPHandler(c echo.Context) error {
 
-}
