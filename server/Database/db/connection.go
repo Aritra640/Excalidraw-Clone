@@ -21,7 +21,8 @@ func Connect() error {
   }
 
   //Connect to database
-  DB,err := sql.Open("postgres" , postgresURL)
+  var err error
+  DB,err = sql.Open("postgres" , postgresURL)
   if err != nil {
     log.Println("Error: " , err)
     return errors.New("error: could not connect to the database")
