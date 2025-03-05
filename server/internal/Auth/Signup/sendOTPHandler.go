@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	servertypes "github.com/Aritra640/Excalidraw-Clone/server/Models/ServerTypes"
+	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
 	"github.com/labstack/echo/v4"
 )
 
@@ -35,6 +36,9 @@ func SendOTPhandler(c echo.Context) error {
   go getOTP(userEmailID.Email , otpChan)
 
 	//TODO: send verify otp mail
+  otp := <-otpChan
+  mailserver.SendVerifyMail(userDetails.Username , userDetails.Email , otp)
+
 	//TODO: send http status
   c.Response().Header().Add("Username" , userDetails.Username)
   c.Response().Header().Add("Email ID" , userDetails.Email)
