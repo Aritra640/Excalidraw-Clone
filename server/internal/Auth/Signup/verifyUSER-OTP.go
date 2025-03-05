@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	servertypes "github.com/Aritra640/Excalidraw-Clone/server/Models/ServerTypes"
+	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
 	"github.com/labstack/echo/v4"
 )
 
@@ -28,14 +29,17 @@ func VerifyOTPHandler(c echo.Context) error {
 
   match := verifyOTP(userDetails.Email , userDetails.OTP)
   if match {
-    //TODO: delete cache store user details and add them to the database 
-    //TODO: notify user that his account has been verified
-    //TODO: send http status code 200, and request signin 
+
+    //TODO: add user to the database
+
+    notification.SendNotificationVerifiedUser("user" , userDetails.Email)
+    deleteUserFromCache(userDetails.Email)
     return c.JSON(http.StatusOK , servertypes.JSONmessage{
       Message: "user verified, route to signin",
     })
   }else{
-    //TODO: a good idea to erase the otp 
+    deleteOTPkey(userDetails.Email)
+
     log.Printf("For email id: %s, otp could not be verified", userDetails.Email )
     return c.JSON(http.StatusConflict , servertypes.JSONmessage{
       Message: "OTP didnt match, try again , resend otp",

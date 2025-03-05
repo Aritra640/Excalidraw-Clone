@@ -10,6 +10,9 @@ import (
 
 	"github.com/Aritra640/Excalidraw-Clone/server/Database/db"
 	config "github.com/Aritra640/Excalidraw-Clone/server/Models/Config"
+	signup_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signup"
+  signin_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signin"
+
 	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
 	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
 	"github.com/Aritra640/Excalidraw-Clone/server/internal/WS"
@@ -36,7 +39,7 @@ func main() {
   config.App.Google_Email = os.Getenv("GOOGLE_EMAIL_ID")
   config.App.SMTP_Server_Host = os.Getenv("SMTP_SERVER_HOST")
 
-  if *modeString == "testmail" {
+  if modeString != nil && *modeString == "testmail" {
     mailid := os.Getenv("TEST_EMAIL")
     err := mailserver.SendTestMail(mailid)
 
@@ -49,7 +52,7 @@ func main() {
     }
 
     return 
-  }else if *modeString == "verifymail" {
+  }else if *modeString == "verifymail" && modeString != nil {
     mailid := os.Getenv("TEST_EMAIL")
     err := mailserver.SendVerifyMail("aritra101" , mailid , "123456")
 
@@ -62,7 +65,7 @@ func main() {
     }
     return 
 
-  }else if *modeString == "sendmail" {
+  }else if *modeString == "sendmail" && modeString != nil {
     mailid := os.Getenv("TEST_EMAIL")
     err := notification.SendNotificationVerifiedUser("aritra" , mailid)
 
@@ -109,10 +112,22 @@ func main() {
     })
   })
 
+  if config.App.Prod != "true" {
+    e.GET("/app/v1/sample-user-signup" , signup_auth.Sample_Signup_User)
+  }
+  
+  //Sign up routes: 
+  e.POST("/app/v1/signup" , signup_auth.SignupHandler)
+  e.POST("/app/v1/RequestOTP" , signup_auth.SendOTPhandler)
+  e.POST("/app/v1/VerifyOTP" , signup_auth.VerifyOTPHandler)
+  
+  //Sign in routes:
+  e.POST("/app/v1/signin" , signin_auth.SigninHandler)
+
   e.Logger.Fatal(e.Start(config.App.Port))
 }
 
-//start database for migrations set up
+//Start database for migrations set up
 func start_database() error  {
 
   postgresURL := os.Getenv("POSTGRES_CONN_URL")

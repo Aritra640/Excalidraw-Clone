@@ -33,3 +33,9 @@ func verifyOTP(email , otpString string) bool {
   otp := userOTP.(string)
   return otp == otpString
  } 
+
+func deleteOTPkey(email string) {
+  if _, ok := OTPstores.Load(email) ; ok  {
+    OTPstores.Delete(email)
+  }
+}
