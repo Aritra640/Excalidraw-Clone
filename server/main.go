@@ -39,6 +39,7 @@ func main() {
   config.App.Google_App_Password = os.Getenv("GOOGLE_APP_PASSWORD")
   config.App.Google_Email = os.Getenv("GOOGLE_EMAIL_ID")
   config.App.SMTP_Server_Host = os.Getenv("SMTP_SERVER_HOST")
+  config.App.JWT_Secret_Key = os.Getenv("JWT_SECRET_KEY")
 
   if modeString != nil && *modeString == "testmail" {
     mailid := os.Getenv("TEST_EMAIL")

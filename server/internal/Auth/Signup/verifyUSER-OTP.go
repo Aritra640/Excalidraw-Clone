@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	dbhelper "github.com/Aritra640/Excalidraw-Clone/server/Database/dbHandlers"
 	servertypes "github.com/Aritra640/Excalidraw-Clone/server/Models/ServerTypes"
 	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
 	"github.com/labstack/echo/v4"
@@ -29,8 +30,21 @@ func VerifyOTPHandler(c echo.Context) error {
 
   match := verifyOTP(userDetails.Email , userDetails.OTP)
   if match {
-
-    //TODO: add user to the database
+    
+    //Add data to database 
+    addUser,flag := getUser(userDetails.Email)
+    if !flag {
+      log.Println("FATAL ERROR: due to some reason cache storage unexpectedly could not get data in verify-OTP handler, check immediately!")
+      return c.JSON(500 , servertypes.JSONmessage{
+        Message: "Try again, some thing went wrong!",
+      })
+    }
+    _,err := dbhelper.AddNewVerifiedUser(addUser); if err != nil {
+      log.Println("Error: Could not add user: " , err)
+      return c.JSON(500 , servertypes.JSONmessage{
+        Message: "could not add user , please try again!",
+      })
+    }
 
     notification.SendNotificationVerifiedUser("user" , userDetails.Email)
     deleteUserFromCache(userDetails.Email)

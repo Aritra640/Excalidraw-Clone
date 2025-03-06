@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	dbhelper "github.com/Aritra640/Excalidraw-Clone/server/Database/dbHandlers"
 	authtypes "github.com/Aritra640/Excalidraw-Clone/server/Models/AuthTypes"
 	servertypes "github.com/Aritra640/Excalidraw-Clone/server/Models/ServerTypes"
 	"github.com/labstack/echo/v4"
@@ -18,15 +19,21 @@ func SignupHandler(c echo.Context) error {
       Message: "some error has occured, data could not be fetched!",
     })
   }
-  //TODO: check if the user already exists by email id
 
+  _,err := dbhelper.FindUserByEmailID(newUser.Email)
+  if err == nil {
+    //User already exists in database 
+    return c.JSON(404 , servertypes.JSONmessage{
+      Message: "User Data exists",
+    })
+  }
 
   passwordChan := make(chan string)
   go hash_Password(newUser.Password , 14 , passwordChan)
   hash := <-passwordChan
   if hash == "" {
     log.Println("Error: password could not be hashed")
-    return c.JSON(http.StatusInternalServerError , servertypes.JSONmessage{
+    return c.JSON(500 , servertypes.JSONmessage{
       Message: "something went wrong",
     })
   }

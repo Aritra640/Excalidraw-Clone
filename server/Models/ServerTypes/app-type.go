@@ -7,4 +7,6 @@ type AppConfig struct {
 	Google_Email        string
 	Google_App_Password string
 	SMTP_Server_Host    string
+
+  JWT_Secret_Key      string
 }
