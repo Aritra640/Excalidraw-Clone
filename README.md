@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Excalidraw Clone
 
 An open-source Excalidraw clone built with React and TypeScript. This app allows users to create hand-drawn diagrams with a smooth and interactive drawing experience.
@@ -29,5 +27,4 @@ Canvas: Fabric.js / Rough.js for sketchy styles
 Storage: postgresql
 
 Deployment: AWS 
->>>>>>> 42a854a (added landing page)
 
