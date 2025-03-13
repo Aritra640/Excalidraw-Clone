@@ -18,7 +18,7 @@ An open-source Excalidraw clone built with React and TypeScript. This app allows
 
 ## 🛠️ Tech Stack
 
-Frontend: React, TypeScript, Zustand (state management)
+Frontend: React, TypeScript, Recoil (state management), shadcn 
 
 Backend: Go, echo, gorilla/websockets, sqlc , goose
 
