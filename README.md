@@ -2,7 +2,7 @@
 
 An open-source Excalidraw clone built with React and TypeScript. This app allows users to create hand-drawn diagrams with a smooth and interactive drawing experience.
 
-🚀 Features
+## 🚀 Features
 
 🖌️ Freehand drawing and shape tools
 
@@ -16,7 +16,7 @@ An open-source Excalidraw clone built with React and TypeScript. This app allows
 
 📡 Real-time collaboration (Coming soon)
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 Frontend: React, TypeScript, Zustand (state management)
 
