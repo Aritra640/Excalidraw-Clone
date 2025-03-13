@@ -13,6 +13,8 @@ import (
 	config "github.com/Aritra640/Excalidraw-Clone/server/Models/Config"
 	signin_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signin"
 	signup_auth "github.com/Aritra640/Excalidraw-Clone/server/internal/Auth/Signup"
+	excalidrawproject "github.com/Aritra640/Excalidraw-Clone/server/internal/Excalidraw_Project"
+	jwt "github.com/Aritra640/Excalidraw-Clone/server/internal/JWT"
 
 	mailserver "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer"
 	notification "github.com/Aritra640/Excalidraw-Clone/server/internal/MailServer/Notification"
@@ -139,6 +141,10 @@ func main() {
   
   //Sign in routes:
   e.POST("/app/v1/signin" , signin_auth.SigninHandler)
+
+
+  //Auth routes 
+  e.GET("/app/v1/create_project_id" , excalidrawproject.CreateProjectID , jwt.AuthMiddleware_JWT)
 
   e.Logger.Fatal(e.Start(config.App.Port))
 }

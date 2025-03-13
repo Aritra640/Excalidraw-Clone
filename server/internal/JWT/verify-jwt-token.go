@@ -19,7 +19,7 @@ func VerifyToken(tokenString string) (string , error) {
   })
 
   if err != nil {
-    log.Println("Error parsing token: %v\n" , err)
+    log.Printf("Error parsing token: %v\n" , err)
     return "", errors.New("invalid token") 
   }
 
