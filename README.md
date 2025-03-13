@@ -1,4 +1,4 @@
-Excalidraw Clone
+# Excalidraw Clone
 
 An open-source Excalidraw clone built with React and TypeScript. This app allows users to create hand-drawn diagrams with a smooth and interactive drawing experience.
 
