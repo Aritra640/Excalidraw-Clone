@@ -3,6 +3,7 @@ import { GithubIcon } from "@/components/Icons/githubIcon";
 import { FeatureCards } from "@/components/LandingPageComponents/bodycards";
 import { MobileMenuModal } from "@/components/Modals/MenuModal";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export function LandingPage() {
   const redirectToGithub = () => {
@@ -12,6 +13,16 @@ export function LandingPage() {
       "noopener,noreferrer",
     );
   };
+
+  const navigate = useNavigate();
+
+  function Signin() {
+    navigate("/signin");
+  }
+
+  function Signup() {
+    navigate("/signup")
+  }
 
 
   return (<div> <div className=""> 
@@ -26,8 +37,8 @@ export function LandingPage() {
             <div onClick={redirectToGithub} className="hidden md:block text-white cursor-pointer">
               <GithubIcon />
             </div>
-            <Button className="hidden md:block w-32 cursor-pointer hover:bg-slate-900">Sign in</Button>
-            <Button className="hidden md:block w-32 bg-white text-black cursor-pointer hover:text-white">Get Started</Button>
+            <Button onClick={Signin} className="hidden md:block w-32 cursor-pointer hover:bg-slate-900">Sign in</Button>
+            <Button onClick={Signup} className="hidden md:block w-32 bg-white text-black cursor-pointer hover:text-white">Get Started</Button>
             <div className="md:hidden flex items-center gap-4">
               <Button className="bg-white text-black hover:text-white cursor-pointer">Get Started</Button>
               <div className="cursor-pointer">
