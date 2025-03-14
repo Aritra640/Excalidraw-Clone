@@ -1,7 +1,7 @@
 import { Footer } from "@/components/Footer";
-import { FileLines } from "@/components/heroicons/file_lines";
 import { GithubIcon } from "@/components/Icons/githubIcon";
 import { FeatureCards } from "@/components/LandingPageComponents/bodycards";
+import { MobileMenuModal } from "@/components/Modals/MenuModal";
 import { Button } from "@/components/ui/button";
 
 export function LandingPage() {
@@ -14,11 +14,8 @@ export function LandingPage() {
   };
 
 
-  function OpenMenuModal() {
-  }
-
-  return (
-    <div className="overflow-auto scrollbar-hidden">
+  return (<div> <div className=""> 
+    <div className="h-screen overflow-auto scrollbar-hidden">
       {/* HEADER */}
       <header className="bg-slate-950 fixed top-0 left-0 w-full backdrop-blur-md py-4 z-50">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center px-6">
@@ -33,8 +30,8 @@ export function LandingPage() {
             <Button className="hidden md:block w-32 bg-white text-black cursor-pointer hover:text-white">Get Started</Button>
             <div className="md:hidden flex items-center gap-4">
               <Button className="bg-white text-black hover:text-white cursor-pointer">Get Started</Button>
-              <div onClick={OpenMenuModal} className="cursor-pointer">
-                <div className="text-white w-6 h-6" ><FileLines /> </div> {/* Ensure visibility */}
+              <div className="cursor-pointer">
+                <div className="text-white w-6 h-9" ><MobileMenuModal/></div> {/* Ensure visibility */}
               </div>
             </div>
           </div>
@@ -51,6 +48,8 @@ export function LandingPage() {
 
       {/* FOOTER */}
       <Footer />
+    </div>
+    </div>
     </div>
   );
 }
