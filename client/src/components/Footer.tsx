@@ -17,8 +17,8 @@ export function Footer() {
         </div>
 
         {/* Column 2: Social Media (Now Aligned Properly) */}
-        <div className="flex flex-col items-center md:items-start">
-          <h2 className="text-lg font-semibold mb-3">Follow Us</h2>
+        <div className="flex flex-col items-center md:items-start md:ml-36">
+          <h2 className="text-lg font-semibold mb-3 md:ml-4">Follow Us</h2>
           <div className="flex space-x-6">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
               <FaGithub size={24} />

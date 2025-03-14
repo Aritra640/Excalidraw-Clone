@@ -1,10 +1,8 @@
 import { Footer } from "@/components/Footer";
 import { FileLines } from "@/components/heroicons/file_lines";
 import { GithubIcon } from "@/components/Icons/githubIcon";
-import { FeatureCards } from "@/components/LandngPageComponents/bodycards";
+import { FeatureCards } from "@/components/LandingPageComponents/bodycards";
 import { Button } from "@/components/ui/button";
-import { LandingPageMobileAtom } from "@/store/atoms/LandingPageMobileAtom";
-import { useSetRecoilState } from "recoil";
 
 export function LandingPage() {
   const redirectToGithub = () => {
@@ -15,10 +13,8 @@ export function LandingPage() {
     );
   };
 
-  const setLandingPageMobileState = useSetRecoilState(LandingPageMobileAtom);
 
   function OpenMenuModal() {
-    setLandingPageMobileState(true);
   }
 
   return (
