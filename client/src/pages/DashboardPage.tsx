@@ -1,87 +1,78 @@
 import { useState } from "react";
-import { Menu, X, FilePlus, Layers, Users, Printer } from "lucide-react";
+import { FileLines } from "@/components/heroicons/file_lines";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import tutorialImage from "@/assets/tutorial.jpg"; // Replace with actual image
+import { Folder, Users, Plus, LogOut, X } from "lucide-react";
 
-export function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export function DashboardPage() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a] text-white">
-      {/* Sidebar (Hidden on Large Screens) */}
+    <div className="bg-slate-950 h-screen w-screen flex">
+      {/* Sidebar - Mobile & Desktop */}
       <div
-        className={`fixed inset-y-0 left-0 w-64 bg-slate-950 p-6 transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out md:translate-x-0 md:relative`}
+        className={`fixed md:static top-0 left-0 h-full w-64 bg-slate-950 md:bg-indigo-950/25 shadow-lg p-4 transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0`}
       >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">Excalidraw Clone</h2>
-          <Button
-            variant="ghost"
-            className="md:hidden"
-            onClick={() => setSidebarOpen(false)}
+        <div className="flex justify-between items-center">
+          {/* Fancy Username */}
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text drop-shadow-lg">
+            <div className="md:pl-4">Aritra Chatterjee</div>
+          </div>
+          {/* Close Button for Mobile */}
+          <button
+            className="text-white md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
           >
-            <X className="w-6 h-6 text-white" />
-          </Button>
+            <X className="w-6 h-6" />
+          </button>
         </div>
 
-        {/* Sidebar Items */}
-        <nav className="space-y-4">
-          <Button className="w-full bg-slate-900 hover:bg-slate-800 flex items-center gap-3">
-            <FilePlus className="w-5 h-5" /> New Project
+        <div className="pt-8"></div>
+
+        <nav className="flex flex-col gap-4 text-white text-lg mt-6">
+          <Button className="w-full bg-gray-900 rounded-xl flex items-center gap-3 hover:bg-gray-800 transition">
+            <Folder className="w-5 h-5" /> Projects
           </Button>
-          <Button className="w-full bg-slate-900 hover:bg-slate-800 flex items-center gap-3">
-            <Layers className="w-5 h-5" /> All Projects
+          <Button className="w-full bg-gray-900 rounded-xl flex items-center gap-3 hover:bg-gray-800 transition">
+            <Plus className="w-5 h-5" /> New Project
           </Button>
-          <Button className="w-full bg-slate-900 hover:bg-slate-800 flex items-center gap-3">
+          <Button className="w-full bg-gray-900 rounded-xl flex items-center gap-3 hover:bg-gray-800 transition">
             <Users className="w-5 h-5" /> Collaborate
           </Button>
-          <Button className="w-full bg-slate-900 hover:bg-slate-800 flex items-center gap-3">
-            <Printer className="w-5 h-5" /> Print PDF
+          <Button className="w-full bg-red-600 rounded-xl flex items-center gap-3 hover:bg-red-700 mt-auto transition">
+            <LogOut className="w-5 h-5" /> Log Out
           </Button>
         </nav>
       </div>
 
-      {/* Content Area */}
+      {/* Main Content */}
       <div className="flex-1 p-6">
-        {/* Mobile Sidebar Toggle */}
-        <Button
-          variant="ghost"
-          className="md:hidden mb-4"
-          onClick={() => setSidebarOpen(true)}
-        >
-          <Menu className="w-6 h-6 text-white" />
-        </Button>
+        <div className="flex justify-between items-center">
+          {/* Hamburger Menu for Small Screens */}
+          <button
+            className="md:hidden p-2 bg-gray-900 rounded-lg hover:bg-gray-800 transition"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+           <div className="text-white cursor-pointer"><FileLines/></div>
+          </button>
 
-        {/* Dashboard Header */}
-        <h1 className="text-3xl font-bold mb-6">Welcome to Excalidraw Clone</h1>
+          <div className="text-3xl text-white font-sans ml-auto">Excalidraw-Clone</div>
+        </div>
 
-        {/* Tutorial Section */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <Card className="bg-white/10 backdrop-blur-md border border-white/20">
-            <CardHeader>
-              <CardTitle className="text-white">Getting Started</CardTitle>
-            </CardHeader>
-            <CardContent className="text-white/80">
-              <p>
-                Learn how to use Excalidraw Clone with our easy-to-follow
-                tutorial.
-              </p>
-              <ul className="list-disc pl-5 mt-3">
-                <li>Create and manage your projects</li>
-                <li>Collaborate in real-time with your team</li>
-                <li>Export your drawings as PDF</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <div className="hidden md:block">
-            <img
-              src={tutorialImage}
-              alt="Tutorial"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+        {/* Dashboard Content */}
+        <div className="mt-10 flex flex-col items-center text-white">
+          <h2 className="text-4xl font-bold mb-6">Welcome to Your Dashboard</h2>
+          <p className="text-lg text-gray-300 mb-8">
+            Start a new project or collaborate with your team!
+          </p>
+          <div className="flex gap-6">
+            <Button className="px-6 py-3 text-lg bg-gray-900 hover:bg-gray-800 transition">
+              New Project
+            </Button>
+            <Button className="px-6 py-3 text-lg bg-gray-900 hover:bg-gray-800 transition">
+              Collaborate
+            </Button>
           </div>
         </div>
       </div>
