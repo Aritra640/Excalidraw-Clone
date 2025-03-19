@@ -5,6 +5,7 @@ import { SignUp } from "./Pages/SignupPage";
 import { SignIn } from "./Pages/SigninPage";
 import { DashboardPage } from "./Pages/DashboardPage";
 import { DrawingBoardPage } from "./Pages/DrawBoardPage";
+import { Demo } from "./Pages/demoPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/drawboard" element={<DrawingBoardPage />} />
+          <Route path="/demo" element={<Demo />} />
         </Routes>
       </Router>
     </RecoilRoot>
