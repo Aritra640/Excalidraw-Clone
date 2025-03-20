@@ -1,8 +1,9 @@
-import { DCmenubar } from "@/components/drawboardComponents/menubar";
+import { Canvas } from "./Canvas";
 
 export function Demo() {
 
   return <div>
-    <DCmenubar />
+    <Canvas />
   </div>
+
 }
