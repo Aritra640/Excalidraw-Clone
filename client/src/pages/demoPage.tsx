@@ -5,5 +5,4 @@ export function Demo() {
   return <div>
     <Canvas />
   </div>
-
 }

@@ -1,3 +1,4 @@
+import { initDraw } from "@/Draw";
 import { useEffect, useRef } from "react"
 
 export function Canvas() {
@@ -8,26 +9,13 @@ export function Canvas() {
 
     if(canvasRef.current) {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-
-      if (!ctx) {
-        return; 
-      }
-
-      canvas.addEventListener("mousedown", (e)=>{
-        console.log(e.clientX)
-        console.log(e.clientY)
-      })
-
-      canvas.addEventListener("mouseup", (e)=>{
-        console.log(e.clientX)
-        console.log(e.clientY)
-      })
+      
+      initDraw(canvas);
     }
 
   } , [canvasRef])
 
-  return <div>
-    <canvas ref={canvasRef} width={500} height={500}></canvas>
+  return <div className="h-screen w-screen">
+    <canvas className="bg-slate-950" ref={canvasRef} width={2000} height={2000}></canvas>
   </div>
 }
