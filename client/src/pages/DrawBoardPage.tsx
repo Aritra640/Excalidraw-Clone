@@ -1,3 +1,4 @@
+import { Canvas } from "@/components/Draw/canvas";
 import { arrow } from "@/components/drawboardsvg/arrow";
 import { circle } from "@/components/drawboardsvg/circle";
 import { eraser } from "@/components/drawboardsvg/eraser";
@@ -9,14 +10,17 @@ import { useState } from "react";
 
 export function DrawingBoardPage() {
   return (
+    <div className="fixed">
     <div className="bg-slate-950 h-screen w-screen">
-      <div className="flex items-start px-4 pt-3">
+      <div className="flex items-start px-4 pt-3 ">
         <Menu />
 
         <div className="flex-1 flex justify-center">
           <DrawOptionBar />
         </div>
       </div>
+      <Canvas />
+    </div>
     </div>
   );
 }
@@ -92,4 +96,3 @@ function ShareComponent() {
     </div>
   );
 }
-

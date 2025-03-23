@@ -1,8 +1,8 @@
-import { Canvas } from "./Canvas";
+import { DrawingBoardPage } from "./DrawBoardPage";
 
 export function Demo() {
 
   return <div>
-    <Canvas />
+    <DrawingBoardPage />
   </div>
 }
