@@ -7,6 +7,7 @@ import { Pencil } from "@/components/drawboardsvg/pencil";
 import { rectangle } from "@/components/drawboardsvg/rectangle";
 import { FileLines } from "@/components/heroicons/file_lines";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function DrawingBoardPage() {
   return (
@@ -55,11 +56,17 @@ function MenuModal({ closeModal }: { closeModal: () => void }) {
 }
 
 function DrawOptionBar() {
+  const navigate = useNavigate();
+  
+  function Clear(){
+    navigate(0);
+  }
+
   return (
     <div className="bg-gray-500 rounded-md flex justify-start">
       <ShareComponent />
       <ButtonComponent>
-        <div>Save</div>
+        <div onClick={Clear}>clear</div>
       </ButtonComponent>
       <ButtonComponent>{rectangle()}</ButtonComponent>
       <ButtonComponent>{circle()}</ButtonComponent>

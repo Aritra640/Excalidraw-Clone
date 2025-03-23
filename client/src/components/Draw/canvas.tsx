@@ -10,12 +10,12 @@ export function Canvas() {
     if(canvasRef.current) {
       const canvas = canvasRef.current;
       
-      initDraw(canvas , "line");
+      initDraw(canvas , "pencil");
     }
 
   } , [canvasRef])
 
   return <div className="h-screen w-screen">
-    <canvas className="bg-slate-950 relative" ref={canvasRef} width={2000} height={2000}></canvas>
+    <canvas className="bg-slate-950" ref={canvasRef} width={2000} height={2000}></canvas>
   </div>
 }
