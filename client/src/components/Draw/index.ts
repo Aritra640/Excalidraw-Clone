@@ -1,7 +1,7 @@
 import { ShapeTypes } from "@/types/ShapTypes";
 
 export type shape =
-  | {
+  {
       type: "rect";
       x: number;
       y: number;
@@ -51,7 +51,6 @@ export function initDraw(canvas: HTMLCanvasElement, shapeType: ShapeTypes) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  let existingShapes: shape[] = [];
   let clicked = false;
   let startX = 0,
     startY = 0;
@@ -64,6 +63,8 @@ export function initDraw(canvas: HTMLCanvasElement, shapeType: ShapeTypes) {
     endY = 0;
   let lineStartX = 0,
     lineStartY = 0;
+
+  let existingShapes:shape[] = [];
 
 
   let currentPencilPoints: { x: number; y: number }[] = [];

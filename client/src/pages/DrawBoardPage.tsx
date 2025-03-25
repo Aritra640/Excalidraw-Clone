@@ -6,10 +6,12 @@ import { line } from "@/components/drawboardsvg/line";
 import { Pencil } from "@/components/drawboardsvg/pencil";
 import { rectangle } from "@/components/drawboardsvg/rectangle";
 import { FileLines } from "@/components/heroicons/file_lines";
+import { useShape } from "@/hooks/useShape";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function DrawingBoardPage() {
+
   return (
     <div className="fixed">
     <div className="bg-slate-950 h-screen w-screen">
@@ -17,10 +19,10 @@ export function DrawingBoardPage() {
         <Menu />
 
         <div className="flex-1 flex justify-center">
-          <DrawOptionBar />
+          <DrawOptionBar/>
         </div>
       </div>
-      <Canvas />
+      <Canvas/>
     </div>
     </div>
   );
@@ -57,8 +59,37 @@ function MenuModal({ closeModal }: { closeModal: () => void }) {
 
 function DrawOptionBar() {
   const navigate = useNavigate();
-  
-  function Clear(){
+  const shapeContext = useShape();
+
+  function SelectRect() {
+    shapeContext.setShape("rect");
+  }
+
+  function SelectCircle() {
+    shapeContext.setShape("circle");
+  }
+
+  function SelectLine() {
+    shapeContext.setShape("line");
+  }
+
+  function SelectArrow() {
+    shapeContext.setShape("arrow");
+  }
+
+  function SelectEraser() {
+    shapeContext.setShape("eraser");
+  }
+
+  function SelectText() {
+    shapeContext.setShape("text");
+  }
+
+  function SelectPencil() {
+    shapeContext.setShape("pencil");
+  }
+
+   function Clear(){
     navigate(0);
   }
 
@@ -68,15 +99,15 @@ function DrawOptionBar() {
       <ButtonComponent>
         <div onClick={Clear}>clear</div>
       </ButtonComponent>
-      <ButtonComponent>{rectangle()}</ButtonComponent>
-      <ButtonComponent>{circle()}</ButtonComponent>
-      <ButtonComponent>{line()}</ButtonComponent>
-      <ButtonComponent>{arrow()}</ButtonComponent>
+      <ButtonComponent><div onClick={SelectRect}>{rectangle()}</div></ButtonComponent>
+      <ButtonComponent><div onClick={SelectCircle}>{circle()}</div></ButtonComponent>
+      <ButtonComponent><div onClick={SelectLine}>{line()}</div></ButtonComponent>
+      <ButtonComponent><div onClick={SelectArrow}>{arrow()}</div></ButtonComponent>
       <ButtonComponent>
-        <div>Text</div>
+        <div onClick={SelectText}>Text</div>
       </ButtonComponent>
-      <ButtonComponent>{eraser()}</ButtonComponent>
-      <ButtonComponent>{Pencil()}</ButtonComponent>
+      <ButtonComponent><div onClick={SelectEraser}>{eraser()}</div></ButtonComponent>
+      <ButtonComponent><div onClick={SelectPencil}>{Pencil()}</div></ButtonComponent>
     </div>
   );
 }
